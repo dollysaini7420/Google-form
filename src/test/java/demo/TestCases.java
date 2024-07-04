@@ -7,10 +7,13 @@ import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.time.Duration;
 import java.util.logging.Level;
 // import io.github.bonigarcia.wdm.WebDriverManager;
 import demo.wrappers.Wrappers;
@@ -62,7 +65,11 @@ public class TestCases {
     public void testCase01() throws InterruptedException{
         System.out.println("Start test case 01");
        driver.get("https://docs.google.com/forms/d/e/1FAIpQLSep9LTMntH5YqIXa5nkiPKSs283kdwitBBhXWyZdAS-e4CxBQ/viewform");
-       Thread.sleep(5000);
+      // Thread.sleep(5000);
+      //Wrappers wait = new Wrappers(driver, 30);
+      WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+      wait.until(ExpectedConditions.urlContains("forms"));
+
        WebElement namefield = driver.findElement(By.xpath("(//input[@jsname='YPqjbf'])[1]"));
        namefield.click();
        namefield.sendKeys("Crio Learner");
@@ -112,10 +119,13 @@ public class TestCases {
        submit.click();
        Thread.sleep(3000);
 
+    //   Wrappers wait = new Wrappers(driver, 30);
+    //   wait.until(ExpectedConditions.presenceOfElementLocated)
+
        WebElement submitresponse = driver.findElement(By.xpath("//div[contains(text(),'Thanks for your response, Automation Wizard!')]"));
        String text = submitresponse.getText();
        System.out.println(text);
-       System.out.println("Start test case 01");
+       System.out.println("end test case 01");
 
 
 
